@@ -1,5 +1,14 @@
 # Orion Library
-This documentation is for the stable release of Orion Library.
+This documentation is for the stable release of Orion Library. (Modified by locality)
+
+###
+Yes! You can delete any element. Example:
+```lua
+local Section = Tab:AddSection({
+	Name = "Section"
+})
+Section:Delete()
+```
 
 ## Booting the Library
 ```lua
