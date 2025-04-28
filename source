@@ -814,6 +814,9 @@ function OrionLib:MakeWindow(WindowConfig)
 				function LabelFunction:Set(ToChange)
 					LabelFrame.Content.Text = ToChange
 				end
+                function LabelFunction:Delete()
+                    LabelFrame:Destroy()
+                end
 				return LabelFunction
 			end
 			function ElementFunction:AddParagraph(Text, Content)
@@ -841,7 +844,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					AddThemeObject(MakeElement("Stroke"), "Stroke")
 				}), "Second")
 
-				AddConnection(ParagraphFrame.Content:GetPropertyChangedSignal("Text"), function()
+				local Connection; Connection = AddConnection(ParagraphFrame.Content:GetPropertyChangedSignal("Text"), function()
 					ParagraphFrame.Content.Size = UDim2.new(1, -24, 0, ParagraphFrame.Content.TextBounds.Y)
 					ParagraphFrame.Size = UDim2.new(1, 0, 0, ParagraphFrame.Content.TextBounds.Y + 35)
 				end)
@@ -852,6 +855,11 @@ function OrionLib:MakeWindow(WindowConfig)
 				function ParagraphFunction:Set(ToChange)
 					ParagraphFrame.Content.Text = ToChange
 				end
+                function ParagraphFunction:Delete()
+                    ParagraphFrame:Destroy()
+                    Connection:Disconnect()
+                    Connection = nil
+                end
 				return ParagraphFunction
 			end    
 			function ElementFunction:AddButton(ButtonConfig)
@@ -884,29 +892,40 @@ function OrionLib:MakeWindow(WindowConfig)
 					Click
 				}), "Second")
 
-				AddConnection(Click.MouseEnter, function()
+				local Connection;Connection=AddConnection(Click.MouseEnter, function()
 					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
-				AddConnection(Click.MouseLeave, function()
+				local Connection2;Connection2=AddConnection(Click.MouseLeave, function()
 					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Second}):Play()
 				end)
 
-				AddConnection(Click.MouseButton1Up, function()
+				local Connection3;Connection3=AddConnection(Click.MouseButton1Up, function()
 					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 					spawn(function()
 						ButtonConfig.Callback()
 					end)
 				end)
 
-				AddConnection(Click.MouseButton1Down, function()
+				local Connection4;Connection4=AddConnection(Click.MouseButton1Down, function()
 					TweenService:Create(ButtonFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 6)}):Play()
 				end)
 
 				function Button:Set(ButtonText)
 					ButtonFrame.Content.Text = ButtonText
 				end	
+                function Button:Delete()
+                    ButtonFrame:Destroy()
+                    Connection:Disconnect()
+                    Connection2:Disconnect()
+                    Connection3:Disconnect()
+                    Connection4:Disconnect()
 
+                    Connection = nil
+                    Connection2 = nil
+                    Connection3 = nil
+                    Connection4 = nil
+                end
 				return Button
 			end    
 			function ElementFunction:AddToggle(ToggleConfig)
@@ -968,23 +987,37 @@ function OrionLib:MakeWindow(WindowConfig)
 
 				Toggle:Set(Toggle.Value)
 
-				AddConnection(Click.MouseEnter, function()
+				local Connection; Connection = AddConnection(Click.MouseEnter, function()
 					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
-				AddConnection(Click.MouseLeave, function()
+				local Connection2; Connection2 = AddConnection(Click.MouseLeave, function()
 					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Second}):Play()
 				end)
 
-				AddConnection(Click.MouseButton1Up, function()
+				local Connection3; Connection3 = AddConnection(Click.MouseButton1Up, function()
 					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 					SaveCfg(game.GameId)
 					Toggle:Set(not Toggle.Value)
 				end)
 
-				AddConnection(Click.MouseButton1Down, function()
+				local Connection4; Connection4 = AddConnection(Click.MouseButton1Down, function()
 					TweenService:Create(ToggleFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 6)}):Play()
 				end)
+
+                function Toggle:Delete()
+                    ToggleFrame:Destroy()
+                    Connection:Disconnect()
+                    Connection2:Disconnect()
+                    Connection3:Disconnect()
+                    Connection4:Disconnect()
+
+                    Connection = nil
+                    Connection2 = nil
+                    Connection3 = nil
+                    Connection4 = nil
+                end
+
 
 				if ToggleConfig.Flag then
 					OrionLib.Flags[ToggleConfig.Flag] = Toggle
@@ -1053,18 +1086,18 @@ function OrionLib:MakeWindow(WindowConfig)
 					SliderBar
 				}), "Second")
 
-				SliderBar.InputBegan:Connect(function(Input)
+				local Connection; Connection = SliderBar.InputBegan:Connect(function(Input)
 					if Input.UserInputType == Enum.UserInputType.MouseButton1 then 
 						Dragging = true 
 					end 
 				end)
-				SliderBar.InputEnded:Connect(function(Input) 
+				local Connection2; Connection2 = SliderBar.InputEnded:Connect(function(Input) 
 					if Input.UserInputType == Enum.UserInputType.MouseButton1 then 
 						Dragging = false 
 					end 
 				end)
 
-				UserInputService.InputChanged:Connect(function(Input)
+				local Connection3; Connection3 = UserInputService.InputChanged:Connect(function(Input)
 					if Dragging and Input.UserInputType == Enum.UserInputType.MouseMovement then 
 						local SizeScale = math.clamp((Input.Position.X - SliderBar.AbsolutePosition.X) / SliderBar.AbsoluteSize.X, 0, 1)
 						Slider:Set(SliderConfig.Min + ((SliderConfig.Max - SliderConfig.Min) * SizeScale)) 
@@ -1079,6 +1112,20 @@ function OrionLib:MakeWindow(WindowConfig)
 					SliderDrag.Value.Text = tostring(self.Value) .. " " .. SliderConfig.ValueName
 					SliderConfig.Callback(self.Value)
 				end      
+
+                function Slider:Delete()
+                    SliderFrame:Destroy()
+                    SliderDrag:Destroy()
+                    SliderBar:Destroy()
+
+                    Connection:Disconnect()
+                    Connection2:Disconnect()
+                    Connection3:Disconnect()
+
+                    Connection = nil
+                    Connection2 = nil
+                    Connection3 = nil
+                end
 
 				Slider:Set(Slider.Value)
 				if SliderConfig.Flag then				
@@ -1159,7 +1206,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					MakeElement("Corner")
 				}), "Second")
 
-				AddConnection(DropdownList:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+				local Connection; Connection = AddConnection(DropdownList:GetPropertyChangedSignal("AbsoluteContentSize"), function()
 					DropdownContainer.CanvasSize = UDim2.new(0, 0, 0, DropdownList.AbsoluteContentSize.Y)
 				end)  
 
@@ -1223,7 +1270,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					return DropdownConfig.Callback(Dropdown.Value)
 				end
 
-				AddConnection(Click.MouseButton1Click, function()
+				local Connection2; Connection2=AddConnection(Click.MouseButton1Click, function()
 					Dropdown.Toggled = not Dropdown.Toggled
 					DropdownFrame.F.Line.Visible = Dropdown.Toggled
 					TweenService:Create(DropdownFrame.F.Ico,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Rotation = Dropdown.Toggled and 180 or 0}):Play()
@@ -1233,6 +1280,17 @@ function OrionLib:MakeWindow(WindowConfig)
 						TweenService:Create(DropdownFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Dropdown.Toggled and UDim2.new(1, 0, 0, DropdownList.AbsoluteContentSize.Y + 38) or UDim2.new(1, 0, 0, 38)}):Play()
 					end
 				end)
+
+                function Dropdown:Delete()
+                    DropdownFrame:Destroy()
+                    DropdownContainer:Destroy()
+                    DropdownList:Destroy()
+
+                    Connection:Disconnect()
+                    Connection2:Disconnect()
+                    Connection = nil
+                    Connection2 = nil
+                end
 
 				Dropdown:Refresh(Dropdown.Options, false)
 				Dropdown:Set(Dropdown.Value)
@@ -1285,12 +1343,12 @@ function OrionLib:MakeWindow(WindowConfig)
 					Click
 				}), "Second")
 
-				AddConnection(BindBox.Value:GetPropertyChangedSignal("Text"), function()
+				local Connection6; Connection6 = AddConnection(BindBox.Value:GetPropertyChangedSignal("Text"), function()
 					--BindBox.Size = UDim2.new(0, BindBox.Value.TextBounds.X + 16, 0, 24)
 					TweenService:Create(BindBox, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, BindBox.Value.TextBounds.X + 16, 0, 24)}):Play()
 				end)
 
-				AddConnection(Click.InputEnded, function(Input)
+				local Connection7; Connection7 = AddConnection(Click.InputEnded, function(Input)
 					if Input.UserInputType == Enum.UserInputType.MouseButton1 then
 						if Bind.Binding then return end
 						Bind.Binding = true
@@ -1298,7 +1356,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					end
 				end)
 
-				AddConnection(UserInputService.InputBegan, function(Input)
+				local Connection8; Connection8 = AddConnection(UserInputService.InputBegan, function(Input)
 					if UserInputService:GetFocusedTextBox() then return end
 					if (Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value) and not Bind.Binding then
 						if BindConfig.Hold then
@@ -1324,8 +1382,8 @@ function OrionLib:MakeWindow(WindowConfig)
 						SaveCfg(game.GameId)
 					end
 				end)
-
-				AddConnection(UserInputService.InputEnded, function(Input)
+                
+				local Connection; Connection = AddConnection(UserInputService.InputEnded, function(Input)
 					if Input.KeyCode.Name == Bind.Value or Input.UserInputType.Name == Bind.Value then
 						if BindConfig.Hold and Holding then
 							Holding = false
@@ -1334,19 +1392,19 @@ function OrionLib:MakeWindow(WindowConfig)
 					end
 				end)
 
-				AddConnection(Click.MouseEnter, function()
+				local Connection2; Connection2 = AddConnection(Click.MouseEnter, function()
 					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
-				AddConnection(Click.MouseLeave, function()
+				local Connection3; Connection3 = AddConnection(Click.MouseLeave, function()
 					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Second}):Play()
 				end)
 
-				AddConnection(Click.MouseButton1Up, function()
+				local Connection4; Connection4 = AddConnection(Click.MouseButton1Up, function()
 					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
-				AddConnection(Click.MouseButton1Down, function()
+				local Connection5; Connection5 = AddConnection(Click.MouseButton1Down, function()
 					TweenService:Create(BindFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 6)}):Play()
 				end)
 
@@ -1356,6 +1414,28 @@ function OrionLib:MakeWindow(WindowConfig)
 					Bind.Value = Bind.Value.Name or Bind.Value
 					BindBox.Value.Text = Bind.Value
 				end
+
+                function Bind:Delete()
+                    BindFrame:Destroy()
+                    BindBox:Destroy()
+                    Click:Destroy()
+
+                    Connection:Disconnect()
+                    Connection2:Disconnect()
+                    Connection3:Disconnect()
+                    Connection4:Disconnect()
+                    Connection5:Disconnect()
+                    Connection6:Disconnect()
+                    Connection7:Disconnect()
+
+                    Connection = nil
+                    Connection2 = nil
+                    Connection3 = nil
+                    Connection4 = nil
+                    Connection5 = nil
+                    Connection6 = nil
+                    Connection7 = nil
+                end
 
 				Bind:Set(BindConfig.Default)
 				if BindConfig.Flag then				
@@ -1411,12 +1491,12 @@ function OrionLib:MakeWindow(WindowConfig)
 					Click
 				}), "Second")
 
-				AddConnection(TextboxActual:GetPropertyChangedSignal("Text"), function()
+				local Connection; Connection = AddConnection(TextboxActual:GetPropertyChangedSignal("Text"), function()
 					--TextContainer.Size = UDim2.new(0, TextboxActual.TextBounds.X + 16, 0, 24)
 					TweenService:Create(TextContainer, TweenInfo.new(0.45, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {Size = UDim2.new(0, TextboxActual.TextBounds.X + 16, 0, 24)}):Play()
 				end)
 
-				AddConnection(TextboxActual.FocusLost, function()
+				local Connection2; Connection2 = AddConnection(TextboxActual.FocusLost, function()
 					TextboxConfig.Callback(TextboxActual.Text)
 					if TextboxConfig.TextDisappear then
 						TextboxActual.Text = ""
@@ -1425,23 +1505,44 @@ function OrionLib:MakeWindow(WindowConfig)
 
 				TextboxActual.Text = TextboxConfig.Default
 
-				AddConnection(Click.MouseEnter, function()
+				local Connection3; Connection3 = AddConnection(Click.MouseEnter, function()
 					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 				end)
 
-				AddConnection(Click.MouseLeave, function()
+				local Connection4; Connection4 = AddConnection(Click.MouseLeave, function()
 					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = OrionLib.Themes[OrionLib.SelectedTheme].Second}):Play()
 				end)
 
-				AddConnection(Click.MouseButton1Up, function()
+				local Connection5; Connection5 = AddConnection(Click.MouseButton1Up, function()
 					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 3, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 3)}):Play()
 					TextboxActual:CaptureFocus()
 				end)
 
-				AddConnection(Click.MouseButton1Down, function()
+				local Connection6; Connection6 = AddConnection(Click.MouseButton1Down, function()
 					TweenService:Create(TextboxFrame, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {BackgroundColor3 = Color3.fromRGB(OrionLib.Themes[OrionLib.SelectedTheme].Second.R * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.G * 255 + 6, OrionLib.Themes[OrionLib.SelectedTheme].Second.B * 255 + 6)}):Play()
 				end)
-			end 
+                local Textbox = {}
+                function Textbox:Delete()
+                    TextboxActual:Destroy()
+                    TextContainer:Destroy()
+                    TextboxFrame:Destroy()
+
+                    Connection:Disconnect()
+                    Connection2:Disconnect()
+                    Connection3:Disconnect()
+                    Connection4:Disconnect()
+                    Connection5:Disconnect()
+                    Connection6:Disconnect()
+
+                    Connection = nil
+                    Connection2 = nil
+                    Connection3 = nil
+                    Connection4 = nil
+                    Connection5 = nil
+                    Connection6 = nil
+                end
+                return Textbox
+			end
 			function ElementFunction:AddColorpicker(ColorpickerConfig)
 				ColorpickerConfig = ColorpickerConfig or {}
 				ColorpickerConfig.Name = ColorpickerConfig.Name or "Colorpicker"
@@ -1546,7 +1647,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					AddThemeObject(MakeElement("Stroke"), "Stroke"),
 				}), "Second")
 
-				AddConnection(Click.MouseButton1Click, function()
+				local Connection; Connection = AddConnection(Click.MouseButton1Click, function()
 					Colorpicker.Toggled = not Colorpicker.Toggled
 					TweenService:Create(ColorpickerFrame,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{Size = Colorpicker.Toggled and UDim2.new(1, 0, 0, 148) or UDim2.new(1, 0, 0, 38)}):Play()
 					Color.Visible = Colorpicker.Toggled
@@ -1566,7 +1667,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				ColorS = (math.clamp(ColorSelection.AbsolutePosition.X - Color.AbsolutePosition.X, 0, Color.AbsoluteSize.X) / Color.AbsoluteSize.X)
 				ColorV = 1 - (math.clamp(ColorSelection.AbsolutePosition.Y - Color.AbsolutePosition.Y, 0, Color.AbsoluteSize.Y) / Color.AbsoluteSize.Y)
 
-				AddConnection(Color.InputBegan, function(input)
+				local Connection2; Connection2 = AddConnection(Color.InputBegan, function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
 						if ColorInput then
 							ColorInput:Disconnect()
@@ -1582,7 +1683,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					end
 				end)
 
-				AddConnection(Color.InputEnded, function(input)
+				local Connection3; Connection3 = AddConnection(Color.InputEnded, function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
 						if ColorInput then
 							ColorInput:Disconnect()
@@ -1590,7 +1691,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					end
 				end)
 
-				AddConnection(Hue.InputBegan, function(input)
+				local Connection4; Connection4 = AddConnection(Hue.InputBegan, function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
 						if HueInput then
 							HueInput:Disconnect()
@@ -1607,7 +1708,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					end
 				end)
 
-				AddConnection(Hue.InputEnded, function(input)
+				local Connection5; Connection5 = AddConnection(Hue.InputEnded, function(input)
 					if input.UserInputType == Enum.UserInputType.MouseButton1 then
 						if HueInput then
 							HueInput:Disconnect()
@@ -1620,6 +1721,27 @@ function OrionLib:MakeWindow(WindowConfig)
 					ColorpickerBox.BackgroundColor3 = Colorpicker.Value
 					ColorpickerConfig.Callback(Colorpicker.Value)
 				end
+                function Colorpicker:Destroy()
+                    ColorSelection:Destroy()
+                    HueSelection:Destroy()
+                    Color:Destroy()
+                    Hue:Destroy()
+                    ColorpickerContainer:Destroy()
+                    ColorpickerBox:Destroy()
+                    ColorpickerFrame:Destroy()
+
+                    Connection:Disconnect()
+                    Connection2:Disconnect()
+                    Connection3:Disconnect()
+                    Connection4:Disconnect()
+                    Connection5:Disconnect()
+
+                    Connection = nil
+                    Connection2 = nil
+                    Connection3 = nil
+                    Connection4 = nil
+                    Connection5 = nil
+                end
 
 				Colorpicker:Set(Colorpicker.Value)
 				if ColorpickerConfig.Flag then				
@@ -1654,7 +1776,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				}),
 			})
 
-			AddConnection(SectionFrame.Holder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
+			local Connection; Connection = AddConnection(SectionFrame.Holder.UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"), function()
 				SectionFrame.Size = UDim2.new(1, 0, 0, SectionFrame.Holder.UIListLayout.AbsoluteContentSize.Y + 31)
 				SectionFrame.Holder.Size = UDim2.new(1, 0, 0, SectionFrame.Holder.UIListLayout.AbsoluteContentSize.Y)
 			end)
@@ -1663,6 +1785,12 @@ function OrionLib:MakeWindow(WindowConfig)
 			for i, v in next, GetElements(SectionFrame.Holder) do
 				SectionFunction[i] = v 
 			end
+            function SectionFunction:Delete()
+                SectionFrame:Destroy()
+
+                Connection:Disconnect()
+                Connection = nil
+            end
 			return SectionFunction
 		end	
 
