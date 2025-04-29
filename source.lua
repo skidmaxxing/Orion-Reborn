@@ -1201,7 +1201,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					for _, Option in pairs(Options) do
 						local OptionBtn = AddThemeObject(SetProps(SetChildren(MakeElement("Button", Color3.fromRGB(40, 40, 40)), {
 							MakeElement("Corner", 0, 6),
-							AddThemeObject(SetProps(MakeElement("Label", Option, 13, 0.4), {
+							AddThemeObject(SetProps(MakeElement("Label", typeof(Option) == "Instance" and Option.Name or Option, 13, 0.4), {
 								Position = UDim2.new(0, 8, 0, 0),
 								Size = UDim2.new(1, -8, 1, 0),
 								Name = "Title"
@@ -1246,7 +1246,7 @@ function OrionLib:MakeWindow(WindowConfig)
 					end
 
 					Dropdown.Value = Value
-					DropdownFrame.F.Selected.Text = Dropdown.Value
+					DropdownFrame.F.Selected.Text = typeof(Dropdown.Value) == "Instance" and Dropdown.Value.Name or Dropdown.Value
 
 					for _, v in pairs(Dropdown.Buttons) do
 						TweenService:Create(v,TweenInfo.new(.15, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),{BackgroundTransparency = 1}):Play()
