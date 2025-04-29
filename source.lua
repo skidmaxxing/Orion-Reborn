@@ -1834,11 +1834,10 @@ function OrionLib:MakeWindow(WindowConfig)
 				}), "Text")
 			})
 		end
-		return ElementFunction   
-	end  
-	
+		return ElementFunction
+	end
 	return TabFunction
-end   
+end
 
 function OrionLib:Destroy()
 	Orion:Destroy()
