@@ -305,7 +305,7 @@ The `Flag = <string>` argument is the ID of an element in the config file.
 The `Save = <bool>` argument includes the element in the config file.
 Config files are made for every game the library is launched in.
 
-### Destroing the element
+### Destroying the element
 ```lua
 local Section = Tab:AddSection({
 	Name = "Section"
