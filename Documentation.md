@@ -1,40 +1,43 @@
 # Orion Library
 This documentation is for the stable release of Orion Library. (Modified by locality)
 
-###
-Yes! You can delete any element. Example:
-```lua
-local Section = Tab:AddSection({
-	Name = "Section"
-})
-Section:Delete()
-```
-
 ## Booting the Library
 ```lua
 local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/localityyy/Orion/refs/heads/main/source')))()
 ```
 
-
-
 ## Creating a Window
 ```lua
-local Window = OrionLib:MakeWindow({Name = "Title of the library", HidePremium = false, SaveConfig = true, ConfigFolder = "OrionTest"})
+local Window = OrionLib:MakeWindow({
+	Name = "Title of the library", 
+	HidePremium = true, 
+	Theme = "Default",
+	SaveConfig = true, 
+	ConfigFolder = "Orion",
+})
 
 --[[
-Name = <string> - The name of the UI.
-HidePremium = <bool> - Whether or not the user details shows Premium status or not.
-SaveConfig = <bool> - Toggles the config saving in the UI.
-ConfigFolder = <string> - The name of the folder where the configs are saved.
-IntroEnabled = <bool> - Whether or not to show the intro animation.
-IntroText = <string> - Text to show in the intro animation.
-IntroIcon = <string> - URL to the image you want to use in the intro animation.
-Icon = <string> - URL to the image you want displayed on the window.
-CloseCallback = <function> - Function to execute when the window is closed.
+	Name = <string> - The name of the UI.
+	Theme = <string> - Theme.
+	HidePremium = <bool> - Whether or not the user details shows Premium status or not.
+	PremiumText = <string> - Shows text under user details, only when HidePremium is false
+	SaveConfig = <bool> - Toggles the config saving in the UI.
+	ConfigFolder = <string> - The name of the folder where the configs are saved.
+	IntroEnabled = <bool> - Whether or not to show the intro animation.
+	IntroText = <string> - Text to show in the intro animation.
+	IntroIcon = <string> - URL to the image you want to use in the intro animation.
+	Icon = <string> - URL to the image you want displayed on the window.
+	CloseCallback = <function> - Function to execute when the window is closed.
 ]]
 ```
 
+### Available Themes
+```lua
+Theme Name - ThemeIdentifier
 
+Default - Default
+Dark Blue - DarkBlue
+```
 
 ## Creating a Tab
 ```lua
@@ -301,6 +304,15 @@ Then you need to add the `Flag` and `Save` values to every toggle, slider, dropd
 The `Flag = <string>` argument is the ID of an element in the config file.
 The `Save = <bool>` argument includes the element in the config file.
 Config files are made for every game the library is launched in.
+
+### Destroing the element
+```lua
+local Section = Tab:AddSection({
+	Name = "Section"
+})
+Section:Delete()
+```
+
 
 ## Destroying the Interface
 ```lua
