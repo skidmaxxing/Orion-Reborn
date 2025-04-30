@@ -44,14 +44,25 @@ Dark Blue - DarkBlue
 local Tab = Window:MakeTab({
 	Name = "Tab 1",
 	Icon = "rbxassetid://4483345998",
-	PremiumOnly = false
+	Restricted = false,
+	RestrictedMessage = "Unauthorised Access",
+	RestrictedIcon = "rbxassetid://3610239960",
+	RestrictedLabel = "Premium Features",
+	RestrictedLabelIcon = "rbxassetid://4483345875",
+	RestrictedContent = "This part of the script is locked to Premium users"
 })
 
 --[[
-Name = <string> - The name of the tab.
-Icon = <string> - The icon of the tab.
-PremiumOnly = <bool> - Makes the tab accessible to Sirus Premium users only.
+Name: <string> — The name of the tab.
+Icon: <string> — The icon of the tab.
+Restricted: <bool> — Makes the tab inaccessible.
+RestrictedMessage: <string> — Sets the text shown when access is restricted.
+RestrictedIcon: <string> — Sets the icon displayed next to the restricted message.
+RestrictedLabel: <string> — Text shown for restricted premium features.
+RestrictedLabelIcon: <string> — Sets the icon displayed next to the restricted label.
+RestrictedContent: <string> — The description or content shown for restricted premium features.
 ]]
+
 ```
 ## Creating a Section
 ```lua

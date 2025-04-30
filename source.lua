@@ -712,7 +712,12 @@ function OrionLib:MakeWindow(WindowConfig)
 		TabConfig = TabConfig or {}
 		TabConfig.Name = TabConfig.Name or "Tab"
 		TabConfig.Icon = TabConfig.Icon or ""
-		TabConfig.PremiumOnly = TabConfig.PremiumOnly or false
+		TabConfig.Restricted = TabConfig.Restricted or false
+		TabConfig.RestrictedMessage = TabConfig.RestrictedMessage or "Unauthorised Access" and TabConfig.Restricted
+		TabConfig.RestrictedIcon = TabConfig.RestrictedIcon or "rbxassetid://3610239960" and TabConfig.Restricted
+		TabConfig.RestrictedLabel = TabConfig.RestrictedLabel or "Premium Features" and TabConfig.Restricted
+		TabConfig.RestrictedLabelIcon = TabConfig.RestrictedLabelIcon or "rbxassetid://4483345875" and TabConfig.Restricted
+		TabConfig.RestrictedContent = TabConfig.RestrictedContent or "This part of the script is locked to Premium users" and TabConfig.Restricted
 
 		local TabFrame = SetChildren(SetProps(MakeElement("Button"), {
 			Size = UDim2.new(1, 0, 0, 30),
@@ -1196,7 +1201,7 @@ function OrionLib:MakeWindow(WindowConfig)
 				local Connection; Connection = AddConnection(DropdownList:GetPropertyChangedSignal("AbsoluteContentSize"), function()
 					DropdownContainer.CanvasSize = UDim2.new(0, 0, 0, DropdownList.AbsoluteContentSize.Y)
 				end)  
-
+				-- TODO: idetifiers for dropdown element like: elementDisplayName, value
 				local function AddOptions(Options)
 					for _, Option in pairs(Options) do
 						local OptionBtn = AddThemeObject(SetProps(SetChildren(MakeElement("Button", Color3.fromRGB(40, 40, 40)), {
@@ -1785,7 +1790,7 @@ function OrionLib:MakeWindow(WindowConfig)
 			ElementFunction[i] = v 
 		end
 
-		if TabConfig.PremiumOnly then
+		if TabConfig.Restricted then
 			for i, v in next, ElementFunction do
 				ElementFunction[i] = function() end
 			end    
@@ -1793,28 +1798,28 @@ function OrionLib:MakeWindow(WindowConfig)
 			Container:FindFirstChild("UIPadding"):Destroy()
 			SetChildren(SetProps(MakeElement("TFrame"), {
 				Size = UDim2.new(1, 0, 1, 0),
-				Parent = ItemParent
+				Parent = Container
 			}), {
-				AddThemeObject(SetProps(MakeElement("Image", "rbxassetid://3610239960"), {
+				AddThemeObject(SetProps(MakeElement("Image", TabConfig.RestrictedIcon), {
 					Size = UDim2.new(0, 18, 0, 18),
 					Position = UDim2.new(0, 15, 0, 15),
 					ImageTransparency = 0.4
 				}), "Text"),
-				AddThemeObject(SetProps(MakeElement("Label", "Unauthorised Access", 14), {
+				AddThemeObject(SetProps(MakeElement("Label", TabConfig.RestrictedMessage, 14), {
 					Size = UDim2.new(1, -38, 0, 14),
 					Position = UDim2.new(0, 38, 0, 18),
 					TextTransparency = 0.4
 				}), "Text"),
-				AddThemeObject(SetProps(MakeElement("Image", "rbxassetid://4483345875"), {
+				AddThemeObject(SetProps(MakeElement("Image", TabConfig.RestrictedLabelIcon), {
 					Size = UDim2.new(0, 56, 0, 56),
 					Position = UDim2.new(0, 84, 0, 110),
 				}), "Text"),
-				AddThemeObject(SetProps(MakeElement("Label", "Premium Features", 14), {
+				AddThemeObject(SetProps(MakeElement("Label", TabConfig.RestrictedLabel, 14), {
 					Size = UDim2.new(1, -150, 0, 14),
 					Position = UDim2.new(0, 150, 0, 112),
 					Font = Enum.Font.GothamBold
 				}), "Text"),
-				AddThemeObject(SetProps(MakeElement("Label", "This part of the script is locked to Sirius Premium users. Purchase Premium in the Discord server (discord.gg/sirius)", 12), {
+				AddThemeObject(SetProps(MakeElement("Label", TabConfig.RestrictedContent, 12), {
 					Size = UDim2.new(1, -200, 0, 14),
 					Position = UDim2.new(0, 150, 0, 138),
 					TextWrapped = true,

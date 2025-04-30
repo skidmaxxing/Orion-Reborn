@@ -9,4 +9,8 @@
     Fixed Hide Premium
     Updated Documentation
 ]
+[30.04.2024] [
+    Renamed PremiumOnly to Restriction
+    Fixed Restriction for tab
+]
 ```
