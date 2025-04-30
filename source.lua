@@ -713,11 +713,11 @@ function OrionLib:MakeWindow(WindowConfig)
 		TabConfig.Name = TabConfig.Name or "Tab"
 		TabConfig.Icon = TabConfig.Icon or ""
 		TabConfig.Restricted = TabConfig.Restricted or false
-		TabConfig.RestrictedMessage = TabConfig.RestrictedMessage or "Unauthorised Access" and TabConfig.Restricted
-		TabConfig.RestrictedIcon = TabConfig.RestrictedIcon or "rbxassetid://3610239960" and TabConfig.Restricted
-		TabConfig.RestrictedLabel = TabConfig.RestrictedLabel or "Premium Features" and TabConfig.Restricted
-		TabConfig.RestrictedLabelIcon = TabConfig.RestrictedLabelIcon or "rbxassetid://4483345875" and TabConfig.Restricted
-		TabConfig.RestrictedContent = TabConfig.RestrictedContent or "This part of the script is locked to Premium users" and TabConfig.Restricted
+		TabConfig.RestrictedMessage = TabConfig.RestrictedMessage or TabConfig.Restricted and "Unauthorised Access" 
+		TabConfig.RestrictedIcon = TabConfig.RestrictedIcon or TabConfig.Restricted and "rbxassetid://3610239960"
+		TabConfig.RestrictedLabel = TabConfig.RestrictedLabel or TabConfig.Restricted and "Premium Features"
+		TabConfig.RestrictedLabelIcon = TabConfig.RestrictedLabelIcon or TabConfig.Restricted and "rbxassetid://4483345875"
+		TabConfig.RestrictedContent = TabConfig.RestrictedContent or TabConfig.Restricted and "This part of the script is locked to Premium users"
 
 		local TabFrame = SetChildren(SetProps(MakeElement("Button"), {
 			Size = UDim2.new(1, 0, 0, 30),
