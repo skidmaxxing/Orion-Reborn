@@ -42,7 +42,7 @@ local function GetIcon(IconName)
 end   
 
 local Orion = Instance.new("ScreenGui")
-Orion.Name = "OrionReborn"
+Orion.Name = getgenv().OrionReborn and getgenv().OrionReborn.CoreGuiName or "OrionReborn"
 if syn then
 	syn.protect_gui(Orion)
 	Orion.Parent = game.CoreGui
