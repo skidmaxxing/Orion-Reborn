@@ -13,4 +13,7 @@
     Renamed PremiumOnly to Restriction
     Fixed Restriction for tab
 ]
+[02.05.2024] [
+    Added ToggleUI Button Customization
+]
 ```
