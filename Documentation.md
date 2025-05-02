@@ -14,6 +14,7 @@ local Window = OrionLib:MakeWindow({
 	Theme = "Default",
 	SaveConfig = true, 
 	ToggleUIButton = Enum.KeyCode.RightShift,
+	UnlockMouse = false,
 	ConfigFolder = "Orion",
 })
 
@@ -29,6 +30,7 @@ local Window = OrionLib:MakeWindow({
 	IntroIcon = <string> - URL to the image you want to use in the intro animation.
 	Icon = <string> - URL to the image you want displayed on the window.
 	ToggleUIButton = <Enum.KeyCode> - KeyCode for toggle UI visibility.
+	UnlockMouse = <bool> - Makes mouse unlocked when opening UI.
 	CloseCallback = <function> - Function to execute when the window is closed.
 ]]
 ```

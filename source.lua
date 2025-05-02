@@ -469,6 +469,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	WindowConfig.ShowIcon = WindowConfig.ShowIcon or false
 	WindowConfig.Icon = WindowConfig.Icon or "rbxassetid://8834748103"
 	WindowConfig.ToggleUIButton = WindowConfig.ToggleUIButton or Enum.KeyCode.RightShift
+	WindowConfig.UnlockMouse = WindowConfig.UnlockMouse or false
 	WindowConfig.IntroIcon = WindowConfig.IntroIcon or "rbxassetid://8834748103"
 	OrionLib.Folder = WindowConfig.ConfigFolder
 	OrionLib.SaveCfg = WindowConfig.SaveConfig
@@ -632,6 +633,10 @@ function OrionLib:MakeWindow(WindowConfig)
 		WindowIcon.Parent = MainWindow.TopBar
 	end	
 
+	if WindowConfig.UnlockMouse then
+		CloseBtn.Modal = true
+	end
+
 	AddDraggingFunctionality(DragPoint, MainWindow)
 
 	AddConnection(CloseBtn.MouseButton1Up, function()
@@ -643,6 +648,9 @@ function OrionLib:MakeWindow(WindowConfig)
 	AddConnection(UserInputService.InputBegan, function(Input)
 		if Input.KeyCode == WindowConfig.ToggleUIButton and UIHidden then
 			MainWindow.Visible = true
+			if WindowConfig.UnlockMouse then
+				UserInputService.MouseIconEnabled = true
+			end
 			task.wait(.1)
 			UIHidden = false
 		end
@@ -651,6 +659,9 @@ function OrionLib:MakeWindow(WindowConfig)
 	AddConnection(UserInputService.InputBegan, function(Input)
 		if Input.KeyCode == WindowConfig.ToggleUIButton and not UIHidden then
 			MainWindow.Visible = false
+			if WindowConfig.UnlockMouse then
+				UserInputService.MouseIconEnabled = false
+			end
 			task.wait(.1)
 			UIHidden = true
 		end

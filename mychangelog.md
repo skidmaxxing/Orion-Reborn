@@ -15,5 +15,6 @@
 ]
 [02.05.2024] [
     Added ToggleUI Button Customization
+    Added UnlockMouse
 ]
 ```
