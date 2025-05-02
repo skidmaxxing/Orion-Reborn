@@ -643,6 +643,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	AddConnection(UserInputService.InputBegan, function(Input)
 		if Input.KeyCode == WindowConfig.ToggleUIButton and UIHidden then
 			MainWindow.Visible = true
+			task.wait(.1)
 			UIHidden = false
 		end
 	end)
@@ -650,6 +651,7 @@ function OrionLib:MakeWindow(WindowConfig)
 	AddConnection(UserInputService.InputBegan, function(Input)
 		if Input.KeyCode == WindowConfig.ToggleUIButton and not UIHidden then
 			MainWindow.Visible = false
+			task.wait(.1)
 			UIHidden = true
 		end
 	end)
