@@ -653,6 +653,7 @@ function OrionLib:MakeWindow(WindowConfig)
 			end
 			task.wait(.1)
 			UIHidden = false
+			WindowConfig.CloseCallback()
 		end
 	end)
 
@@ -664,6 +665,7 @@ function OrionLib:MakeWindow(WindowConfig)
 			end
 			task.wait(.1)
 			UIHidden = true
+			WindowConfig.CloseCallback()
 		end
 	end)
 
