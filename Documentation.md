@@ -3,7 +3,7 @@ This documentation is for the modified release of Orion Library. (by locality)
 
 ## Booting the Library
 ```lua
-local OrionLib = loadstring(game:HttpGet("https://localityyy.github.io/OrionReborn.lua"))()
+local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/skidmaxxing/Orion-Reborn/refs/heads/main/source.lua"))()
 ```
 
 ## Creating a Window
