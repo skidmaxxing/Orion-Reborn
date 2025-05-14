@@ -1,5 +1,3 @@
-
-
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
@@ -645,8 +643,8 @@ function OrionLib:MakeWindow(WindowConfig)
 		WindowConfig.CloseCallback()
 	end)
 
-	AddConnection(UserInputService.InputBegan, function(Input)
-		if Input.KeyCode == WindowConfig.ToggleUIButton and UIHidden then
+	AddConnection(UserInputService.InputBegan, function(Input, ChatOpened)
+		if Input.KeyCode == WindowConfig.ToggleUIButton and UIHidden and not ChatOpened then
 			MainWindow.Visible = true
 			if WindowConfig.UnlockMouse then
 				UserInputService.MouseIconEnabled = true
@@ -656,8 +654,8 @@ function OrionLib:MakeWindow(WindowConfig)
 		end
 	end)
 
-	AddConnection(UserInputService.InputBegan, function(Input)
-		if Input.KeyCode == WindowConfig.ToggleUIButton and not UIHidden then
+	AddConnection(UserInputService.InputBegan, function(Input, ChatOpened)
+		if Input.KeyCode == WindowConfig.ToggleUIButton and not UIHidden and not ChatOpened then
 			MainWindow.Visible = false
 			if WindowConfig.UnlockMouse then
 				UserInputService.MouseIconEnabled = false
